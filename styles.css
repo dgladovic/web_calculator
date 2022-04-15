@@ -7,6 +7,7 @@
     width: 320px;
     height: 460px;
     margin: auto;
+    margin-top: 200px;
     padding: 5px;
     padding-bottom: 2px;
     border: solid black 2px;
@@ -34,7 +35,14 @@
 .display{
     margin: auto;
     width: 320px;
+    height: 50px;
     background-color: white;
+}
+
+.display p{
+    font-size: 46px;
+    margin: auto;
+    text-align: end;
 }
 
 .taster{
@@ -43,6 +51,16 @@
     border-radius:  5px;
     border: solid black 2px;
     background-color: rgb(171, 160, 160);
+    font-size: 24px;
+}
+
+.taster-no{
+    width: 78px;
+    height: 78px;
+    border-radius:  5px;
+    border: solid black 2px;
+    background-color: rgb(171, 160, 160);
+    font-size: 24px;
 }
 
 #nula{
