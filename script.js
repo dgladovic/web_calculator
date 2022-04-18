@@ -105,11 +105,11 @@ operandi.forEach( (operand) => {
             if(a == 2){
                 if(operacija == ' = '){
                     rez = operate(pr_op,br1,br2);
-                    ekran.textContent = rez;
+                    ekran.textContent = rez.toFixed(2);
                     a = 0;
                 }else{
                     rez = operate(operacija,br1,br2);
-                    ekran.textContent = rez;
+                    ekran.textContent = rez.toFixed(2);
                     br1 = rez;
                     a = 1;
                 }    
