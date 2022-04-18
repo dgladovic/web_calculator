@@ -15,22 +15,26 @@ function divide(num1,num2){
 }
 
 function operate(operand,no1,no2){
+    
+    let omikron = 0;
+
     switch(operand){
-        case '+':
-            add(no1,no2);
+        case " + ":
+            omikron = add(no1,no2);
             break;
-        case '-':
-            subtract(no1,no2);
+        case " - ":
+            omikron = subtract(no1,no2);
             break;
-        case '*':
-            multiply(no1,no2);
+        case ' * ':
+            omikron = multiply(no1,no2);
             break;
-        case '/':
-            divide(no1,no2);
+        case ' / ':
+            omikron = divide(no1,no2);
             break;
         default:
             console.log("Nepravilan unos");
     }
+    return omikron;
 }
 
 const brojke = document.querySelectorAll('.taster-no');
@@ -38,42 +42,81 @@ const operandi = document.querySelectorAll('.taster');
 const ekran = document.querySelector('.display p');
 
 let disp_numero = [];
+let a = 0;
+let br1 = 0;
+let br2 = 0;
+let pr_op = '';
 
 brojke.forEach( (brojka) => {
     brojka.addEventListener('click', () => {
+        if (disp_numero.length == 0 && br2 > 0){
+            ekran.textContent = '';
+        }
+        
         display(brojka);
-        disp_numero.push(brojka.textContent);
+        if (disp_numero.length <= 12) {
+            disp_numero.push(brojka.textContent);
+        }
         console.log(disp_numero);
+
+        
+
     })
 })
 
 operandi.forEach( (operand) => {
     operand.addEventListener('click', () => {
+
+        disp_numero.push(operand.textContent);
         if (operand.id == 'AC'){
-            display('');
-            disp_numero = [];
+            ekran.textContent = '';
+            disp_numero.length = 0;
+            disp_numero.pop();
         }
         
         let rez = 0;
         let index = 0;
-        disp_numero.push(operand.textContent);
+        
+        let pl_hold1 = [];
+        let operacija = '';
+        
+            if (operand.id == 'jednako' || operand.id == 'sabiranje' || operand.id == 'mnozenje' || 
+                operand.id == 'oduzimanje' || operand.id == 'deljenje'){
+        
+                index = disp_numero.length - 1;
 
-        if (operand.id == 'jednako'){
-            
-            index = disp_numero.findIndex( (hara) => {
-                if (hara == "="){
-                    return true;
-                }
-            });
-            console.log(index);
+                pl_hold1 = disp_numero.slice(0,index);
 
-            ekran.textContent = rez;
-        }
+                br2 = pl_hold1.toString();
+                br2 = br2.replace(/\s/g, '');
+                br2 = br2.replace(/\,/g, '');
+                
+                br2 = parseFloat(br2);
+                operacija = disp_numero[index];
+                pl_hold1.length = 0;
+                disp_numero.length = 0;
+                
+                a = a + 1;
+            }
+            if (a == 1){
+                br1 = br2;
+                pr_op = operacija;
+            }
+            if(a == 2){
+                if(operacija == ' = '){
+                    rez = operate(pr_op,br1,br2);
+                    ekran.textContent = rez;
+                    a = 0;
+                }else{
+                    rez = operate(operacija,br1,br2);
+                    ekran.textContent = rez;
+                    br1 = rez;
+                    a = 1;
+                }    
+            }
      })
 })
-
-
 function display(inp){
-    ekran.textContent = inp.textContent;
+    ekran.textContent = ekran.textContent + inp.textContent;
 }
 
